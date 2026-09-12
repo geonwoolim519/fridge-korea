@@ -1,4 +1,4 @@
-const CACHE = 'fridge-korea-v3';
+const CACHE = 'fridge-korea-v4';
 const BASE = self.location.pathname.replace(/sw\.js$/, '');
 
 self.addEventListener('install', (event) => {
