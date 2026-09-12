@@ -1,0 +1,1249 @@
+# Fridge Korea — AI Korean Food Discovery App
+
+## 0. 프로젝트 개요
+
+`Fridge Korea`라는 모바일 우선 웹앱을 처음부터 실제로 작동하도록 구현해줘.
+
+이 서비스의 핵심 아이디어는:
+
+> **미국의 평범한 비아시아계 중산층 가정의 냉장고와 주방에 있는 재료만으로, 한국 음식의 맛·조리법·식문화적 요소를 경험할 수 있도록 도와주는 서비스**
+
+이다.
+
+이 앱은 단순한 한식 레시피 앱이 아니다.
+
+사용자가 가지고 있는 미국식 식재료를 입력하면 AI가 이를 분석하여:
+
+1. 지금 가진 재료로 만들 수 있는 Korean / Korean-inspired 음식
+2. 부족한 재료
+3. 부족한 재료의 구매 추천
+4. 한국 재료가 없을 경우 사용할 수 있는 현지 대체재
+5. 미국 가정에서 흔한 조리도구만으로 만드는 방법
+6. 이 음식에 어떤 "Korean Touch"가 들어갔는지
+7. 왜 이것을 한국 음식 또는 Korean-inspired food라고 볼 수 있는지
+8. 이것이 전통적인 한식인지, 현대적인 한식 응용인지
+
+를 설명한다.
+
+---
+
+# 1. 가장 중요한 서비스 철학
+
+## Target User
+
+주요 사용자는:
+
+* 미국 거주자
+* 비아시아계 가정
+* 일반적인 미국 중산층 가정
+* 한국 음식에 관심이 있지만 한국 식재료가 많지 않은 사람
+* K-pop / K-drama / 한국 문화 등을 통해 한국에 관심을 갖기 시작한 사람
+* 한국 음식점에서 먹어본 음식을 집에서도 만들어 보고 싶은 사람
+
+이다.
+
+중요한 점:
+
+**사용자의 주방을 한국인의 주방으로 가정하지 않는다.**
+
+사용자는 일반적인 미국식 주방을 가지고 있다고 가정한다.
+
+예:
+
+* frying pan
+* saucepan
+* large pot
+* oven
+* microwave
+* air fryer
+* toaster
+* blender
+* knife
+* cutting board
+* spatula
+* tongs
+* baking sheet
+
+등은 있을 가능성이 높지만,
+
+**rice cooker는 기본적으로 없는 것으로 가정한다.**
+
+따라서 레시피는 일반적인 미국 주방에서 현실적으로 만들 수 있어야 한다.
+
+---
+
+# 2. 서비스의 핵심 문구
+
+메인 브랜드:
+
+# FRIDGE KOREA
+
+Primary tagline:
+
+> **Your fridge. Korean way.**
+
+Secondary description:
+
+> **Use what you have. Discover Korea.**
+
+한국어 내부 설명:
+
+> 평범한 냉장고에서 발견하는 한국의 맛과 문화.
+
+앱 전체에서 브랜드는 세련되고 현대적인 글로벌 서비스처럼 보여야 한다.
+
+한국적인 요소를 넣되 태극기, 한옥, 복주머니, 전통문양 등을 과도하게 사용하지 않는다.
+
+"한국 = 전통적인 이미지"라는 클리셰에서 벗어난다.
+
+---
+
+# 3. 앱의 핵심 사용자 흐름
+
+전체 UX는 다음과 같다.
+
+```text
+HOME
+↓
+What's in your kitchen?
+↓
+FRIDGE / FREEZER / PANTRY / LEFTOVERS
+↓
+재료 선택
+↓
+KITCHEN TOOLS 선택
+↓
+AI RECIPE DISCOVERY
+↓
+추천 레시피 3~5개
+↓
+레시피 상세
+↓
+You have / You need
+↓
+Korean Touch
+↓
+Why Korean?
+↓
+COOK
+↓
+Step-by-step cooking
+↓
+완성
+```
+
+---
+
+# 4. Home 화면
+
+첫 화면은 매우 직관적이어야 한다.
+
+상단:
+
+**FRIDGE KOREA**
+
+> Your fridge. Korean way.
+
+본문:
+
+> **What's in your kitchen?**
+
+설명:
+
+> Tell us what you have.
+> We'll show you what Korea can taste like.
+
+주요 CTA:
+
+### START COOKING
+
+보조 CTA:
+
+### EXPLORE RECIPES
+
+하단에는 앱의 핵심 특징을 3개 정도 보여준다.
+
+* 🇰🇷 Korean-inspired recipes
+* 🛒 Smart ingredient swaps
+* 📖 Discover Korean food culture
+
+---
+
+# 5. Ingredient Selection
+
+재료를 직접 입력할 수도 있고 카테고리에서 선택할 수도 있도록 한다.
+
+카테고리:
+
+### FRIDGE
+
+* Eggs
+* Milk
+* Butter
+* Cheese
+* Yogurt
+* Bacon
+* Ham
+* Chicken
+* Beef
+* Pork
+* Vegetables
+* Fruits
+* Sauces
+* etc.
+
+### FREEZER
+
+* Frozen pizza
+* Chicken nuggets
+* French fries
+* Hash browns
+* Frozen dumplings
+* Frozen vegetables
+* Frozen shrimp
+* Frozen chicken wings
+* Frozen fish sticks
+* Frozen meatballs
+* etc.
+
+### PANTRY
+
+* Rice
+* Bread
+* Pasta
+* Flour
+* Sugar
+* Salt
+* Soy sauce
+* Ketchup
+* Mustard
+* BBQ sauce
+* Hot sauce
+* Sriracha
+* Honey
+* Olive oil
+* Vinegar
+* etc.
+
+### LEFTOVERS
+
+미국에서 흔한 남은 음식도 선택 가능하도록 한다.
+
+예:
+
+* Leftover pizza
+* Burger
+* Fried chicken
+* Chicken sandwich
+* Taco
+* Burrito
+* French fries
+* Pasta
+* Chipotle-style bowl
+* Chinese takeout
+* Rotisserie chicken
+* etc.
+
+사용자는 여러 재료를 동시에 선택할 수 있다.
+
+---
+
+# 6. 정확히 100개의 기본 식재료 데이터 구축
+
+MVP에는 정확히 100개의 대표 재료를 넣는다.
+
+재료는 "한국인이 자주 쓰는 재료 100개"가 아니라,
+
+**미국 비아시아계 중산층 가정에서 실제로 접할 가능성이 높은 재료**
+
+를 중심으로 구성한다.
+
+다음과 같은 범주를 균형 있게 구성한다.
+
+## Protein / Meat
+
+1. Chicken breast
+2. Chicken thigh
+3. Ground beef
+4. Steak
+5. Ground turkey
+6. Ground pork
+7. Pork chop
+8. Bacon
+9. Ham
+10. Sausage
+11. Hot dog
+12. Deli turkey
+13. Deli ham
+14. Rotisserie chicken
+15. Meatballs
+
+## Eggs / Dairy
+
+16. Eggs
+17. Milk
+18. Butter
+19. Cheddar cheese
+20. Mozzarella cheese
+21. Cream cheese
+22. Parmesan cheese
+23. Greek yogurt
+24. Sour cream
+25. Heavy cream
+
+## Vegetables
+
+26. Potato
+27. Sweet potato
+28. Onion
+29. Green onion
+30. Garlic
+31. Carrot
+32. Cabbage
+33. Lettuce
+34. Spinach
+35. Broccoli
+36. Cauliflower
+37. Bell pepper
+38. Jalapeño
+39. Mushroom
+40. Zucchini
+41. Cucumber
+42. Tomato
+43. Corn
+44. Green beans
+45. Celery
+46. Kale
+47. Brussels sprouts
+48. Asparagus
+49. Avocado
+50. Frozen peas
+
+## Fruits / Fresh ingredients
+
+51. Apple
+52. Banana
+53. Lemon
+54. Lime
+55. Orange
+
+## Grains / Bakery
+
+56. White rice
+57. Brown rice
+58. Bread
+59. Whole wheat bread
+60. Hamburger buns
+61. Hot dog buns
+62. Tortilla
+63. Bagel
+64. English muffin
+65. Croissant
+66. Pasta
+67. Instant noodles
+68. Oatmeal
+69. Cereal
+70. Breadcrumbs
+
+## Sauces / Condiments
+
+71. Soy sauce
+72. Ketchup
+73. Mustard
+74. Mayonnaise
+75. BBQ sauce
+76. Ranch
+77. Buffalo sauce
+78. Hot sauce
+79. Sriracha
+80. Teriyaki sauce
+81. Worcestershire sauce
+82. Honey
+83. Maple syrup
+84. Peanut butter
+85. Olive oil
+86. Vinegar
+87. Apple cider vinegar
+88. Steak sauce
+89. Tomato pasta sauce
+90. Pickle juice
+
+## Snacks / Frozen / Other
+
+91. Potato chips
+92. Tortilla chips
+93. Pretzels
+94. Crackers
+95. Oreos
+96. Popcorn
+97. Frozen pizza
+98. Chicken nuggets
+99. French fries
+100. Frozen dumplings
+
+각 재료에는 다음과 같은 데이터 구조를 사용한다.
+
+```javascript
+{
+  id: "",
+  name: "",
+  category: "",
+  subcategory: "",
+  commonInUSKitchen: true,
+  koreanUses: [],
+  possibleSubstitutes: [],
+  koreanTouchPotential: [],
+  storageType: "",
+  icon: ""
+}
+```
+
+---
+
+# 7. Kitchen Tools — 정확히 20개
+
+미국 일반 가정의 주방을 기준으로 다음 20개를 구축한다.
+
+1. Frying pan
+2. Saucepan
+3. Large pot
+4. Nonstick skillet
+5. Oven
+6. Microwave
+7. Air fryer
+8. Toaster
+9. Blender
+10. Knife
+11. Cutting board
+12. Spatula
+13. Tongs
+14. Wooden spoon
+15. Whisk
+16. Mixing bowl
+17. Baking sheet
+18. Measuring cups
+19. Measuring spoons
+20. Colander
+
+각 도구는 다음 구조를 사용한다.
+
+```javascript
+{
+  id: "",
+  name: "",
+  category: "kitchen-tool",
+  commonInUSKitchen: true,
+  requiredForRecipes: []
+}
+```
+
+Rice cooker는 기본 도구 목록에 넣지 않는다.
+
+---
+
+# 8. Recipe Database
+
+MVP에는 최소 50개, 가능하면 100개의 레시피를 구축한다.
+
+중요:
+
+모든 레시피가 전통적인 한국 음식일 필요는 없다.
+
+다음 3단계로 구분한다.
+
+### AUTHENTIC KOREAN
+
+전통적인 한식 또는 비교적 명확한 한국 음식.
+
+예:
+
+* Bibimbap
+* Kimchi Fried Rice
+* Bulgogi
+* Japchae
+* Korean Egg Toast
+* Tteokbokki
+* Korean Fried Chicken
+* Korean Potato Pancake
+* etc.
+
+### KOREAN-INSPIRED
+
+미국 식재료를 기반으로 한국식 조리법이나 양념을 적용한 음식.
+
+예:
+
+* Korean-style BBQ Chicken Rice Bowl
+* Korean-style Beef Tacos
+* Korean-inspired Avocado Rice
+* Korean BBQ Meatballs
+* Gochujang-style Buffalo Chicken
+* Korean-style Bacon Fried Rice
+
+### KOREAN-TOUCHED
+
+미국 음식에 한국적인 요소를 하나 또는 몇 가지 적용한 음식.
+
+예:
+
+* Korean-style Burger
+* Kimchi Grilled Cheese
+* Sesame Oil Popcorn
+* Gochujang Mac & Cheese
+* Korean-style Pizza
+* Korean-style Chicken Nuggets
+
+이 구분은 매우 중요하다.
+
+앱은 Korean-inspired 음식을 전통 한식이라고 거짓으로 표현해서는 안 된다.
+
+---
+
+# 9. Leftover / Fast Food Recipes
+
+Fridge Korea의 차별점으로 반드시 구현한다.
+
+사용자가 남은 미국식 음식을 입력하면 한국식으로 재해석한다.
+
+예:
+
+### Leftover Pizza
+
+→ Korean-style Pizza Fried Rice
+
+### Leftover Fried Chicken
+
+→ Korean-style Chicken Rice Bowl
+
+### Burger
+
+→ Korean Burger Rice Bowl
+
+### French Fries
+
+→ Korean-style Spicy Fries
+
+### Rotisserie Chicken
+
+→ Korean-style Chicken Soup / Rice Bowl
+
+### Taco
+
+→ Korean-inspired Rice Bowl
+
+### Burrito
+
+→ Korean-style spicy rice bowl
+
+### Pasta
+
+→ Gochujang Pasta
+
+이런 식으로 "남은 음식 → Koreanize" 경험을 제공한다.
+
+단, 억지로 모든 음식에 한국적인 요소를 넣지 않는다.
+
+어울리지 않는 경우:
+
+> "This ingredient isn't a strong match for Korean cooking."
+
+이라고 알려준다.
+
+---
+
+# 10. Ingredient Substitution System
+
+한국 식재료가 없더라도 만들 수 있도록 대체재를 제공한다.
+
+예:
+
+### Gochujang
+
+없다면:
+
+* Sriracha
+* Miso
+* Honey
+* Soy sauce
+
+등을 조합하여 비슷한 방향의 맛을 구현하도록 한다.
+
+단, 절대로 이것을 "정통 고추장"이라고 표현하지 않는다.
+
+표현:
+
+> Korean-inspired substitute
+
+또는
+
+> A shortcut for a similar flavor profile
+
+---
+
+### Sesame oil
+
+없다면:
+
+> Neutral oil + toasted sesame seeds
+
+등의 대안을 제시할 수 있다.
+
+---
+
+### Kimchi
+
+김치가 없다면:
+
+> cabbage + vinegar + chili + garlic
+
+등을 사용한 간단한 Korean-inspired pickle을 제안할 수 있다.
+
+이 경우 반드시:
+
+> "This is not traditional kimchi. It's a quick Korean-inspired substitute."
+
+라고 표시한다.
+
+---
+
+# 11. Recipe Recommendation Algorithm
+
+사용자가 재료를 선택하면 각 레시피를 분석한다.
+
+점수 구성 예:
+
+```text
+Ingredient Match: 40%
+Kitchen Tool Match: 20%
+Korean Relevance: 20%
+Difficulty: 10%
+Time: 10%
+```
+
+결과적으로 가장 적합한 레시피 3~5개를 보여준다.
+
+각 카드에는:
+
+* Food image
+* Recipe name
+* Korean classification
+* Ingredient match
+* Missing ingredients
+* Cooking time
+* Difficulty
+
+를 표시한다.
+
+예:
+
+### 🍗 Korean BBQ Chicken Rice Bowl
+
+**Korean-inspired**
+
+**5/6 ingredients**
+
+🛒 Need 1 ingredient
+
+⏱ 25 min
+
+Easy
+
+---
+
+# 12. Recipe Detail Page
+
+상단:
+
+### Food image
+
+그 아래:
+
+# Korean BBQ Chicken Rice Bowl
+
+**Korean-inspired**
+
+> An American-friendly Korean-style rice bowl using ingredients you already have.
+
+---
+
+### YOU HAVE
+
+✅ Chicken
+✅ Rice
+✅ Onion
+✅ Garlic
+✅ Soy sauce
+
+### YOU NEED
+
+🛒 Sesame oil
+
+---
+
+### KOREAN TOUCH
+
+한국적인 요소를 카드로 보여준다.
+
+예:
+
+**Soy Sauce Marinade**
+
+한국식 고기 요리에서 간장, 마늘, 단맛 등을 활용하는 양념 방식을 적용했습니다.
+
+**Sesame Oil Finish**
+
+참기름을 마지막에 사용해 고소한 향을 더합니다.
+
+**Rice Bowl**
+
+밥을 중심으로 재료와 양념을 함께 먹는 한국식 식사 구조를 활용합니다.
+
+---
+
+# 13. "Why Korean?" 기능
+
+이 앱의 가장 중요한 콘텐츠.
+
+모든 레시피에는 반드시:
+
+# WHY KOREAN?
+
+섹션이 있어야 한다.
+
+단순히:
+
+> "This is Korean because it uses soy sauce."
+
+같은 단순한 설명을 하지 않는다.
+
+다음 요소를 분석해서 설명한다.
+
+### Ingredient
+
+어떤 한국 식재료 또는 그 대체재를 사용했는가?
+
+### Seasoning
+
+한국 음식에서 흔히 사용되는 양념 구조를 활용했는가?
+
+### Cooking Method
+
+볶기, 굽기, 끓이기, 무치기, 양념하기 등의 조리법 중 어떤 한국적 특징을 활용했는가?
+
+### Serving Style
+
+밥과 함께 먹는지, 반찬처럼 먹는지, 공유해서 먹는지 등.
+
+### Food Culture
+
+해당 음식이 한국 식문화에서 어떤 맥락을 가지고 있는지.
+
+---
+
+# 14. Korean Touch Score
+
+레시피마다:
+
+## Korean Touch
+
+예:
+
+### 82 / 100
+
+세부:
+
+* Korean seasoning: 90
+* Korean cooking method: 80
+* Korean ingredients: 70
+* Korean serving style: 85
+
+단, 이것은 객관적인 학술적 점수가 아니라 **앱의 재미있는 설명용 지표**라는 점을 UI에서 자연스럽게 표현한다.
+
+---
+
+# 15. Authenticity Label
+
+레시피마다 반드시 하나를 표시한다.
+
+### 🇰🇷 AUTHENTIC KOREAN
+
+전통 한식 또는 명확한 한국 음식.
+
+### 🇰🇷 KOREAN-INSPIRED
+
+한국의 양념·조리법·식문화에서 영감을 받은 음식.
+
+### ✨ KOREAN-TOUCHED
+
+미국 음식에 한국적인 요소를 적용한 음식.
+
+사용자가 한국 음식에 대해 잘못된 인식을 갖지 않도록 한다.
+
+---
+
+# 16. Cooking Mode
+
+사용자가 실제로 요리할 때 사용할 수 있도록 단계별 화면을 만든다.
+
+예:
+
+## STEP 1
+
+Slice the onion.
+
+[사진/일러스트]
+
+### 1 / 6
+
+---
+
+## STEP 2
+
+Heat your frying pan over medium-high heat.
+
+---
+
+## STEP 3
+
+Add the chicken and cook for 5–6 minutes.
+
+---
+
+버튼:
+
+### NEXT
+
+### PREVIOUS
+
+화면은 최대한 단순하게 만든다.
+
+---
+
+# 17. Food Images
+
+각 레시피마다 대표 음식 이미지를 사용한다.
+
+이미지는 단순한 인터넷 사진을 복붙하는 방식이 아니라 **AI-generated food photography를 활용할 수 있도록 구조를 만들어라.**
+
+각 이미지의 스타일은 전체 앱에서 일관되어야 한다.
+
+### Food Photography Style
+
+* photorealistic
+* appetizing
+* natural daylight
+* modern American home kitchen
+* realistic portion size
+* clean ceramic plates/bowls
+* subtle Korean influence
+* no text
+* no logo
+* no Korean flag
+* no excessive traditional Korean props
+* no unrealistic ingredients
+* no excessive food styling
+* realistic homemade appearance
+
+전통 한식이 아닌 음식은 전통 한식처럼 보이게 만들지 않는다.
+
+예:
+
+Korean-inspired Bacon Rice Bowl이라면 실제 미국 가정에서 만들어 먹을 법한 음식처럼 보여야 한다.
+
+각 이미지 파일은:
+
+```text
+/assets/recipes/
+```
+
+에 저장하고 recipe ID와 연결한다.
+
+예:
+
+```text
+/assets/recipes/korean-bbq-chicken-rice-bowl.webp
+```
+
+이미지 생성 기능을 사용할 수 있다면 레시피 데이터에 맞춰 일관된 스타일로 생성한다.
+
+---
+
+# 18. UI Design Direction
+
+전체 UI는:
+
+**Modern / Clean / Warm / Premium / Food-tech**
+
+느낌.
+
+한국적인 느낌은 색상과 타이포그래피, 작은 디테일로 표현한다.
+
+과도한 전통 디자인은 피한다.
+
+추천 색상 방향:
+
+* warm ivory
+* charcoal
+* muted navy
+* soft green
+* subtle red accent
+
+카드에는 둥근 모서리와 충분한 여백을 사용한다.
+
+사진을 크게 사용한다.
+
+텍스트를 너무 많이 한 화면에 넣지 않는다.
+
+모바일에서 가장 아름답게 보이도록 디자인한다.
+
+---
+
+# 19. Navigation
+
+Bottom navigation:
+
+### Home
+
+### Ingredients
+
+### Recipes
+
+### Saved
+
+필요하면 Profile/Settings는 별도 메뉴로 둔다.
+
+---
+
+# 20. Ingredient Input UX
+
+재료를 검색할 수 있어야 한다.
+
+예:
+
+사용자가
+
+> chicken
+
+이라고 검색하면:
+
+* Chicken breast
+* Chicken thigh
+* Ground chicken
+* Rotisserie chicken
+* Chicken nuggets
+* Chicken wings
+
+등을 보여준다.
+
+또한 카테고리별 browse도 지원한다.
+
+---
+
+# 21. "Koreanize" 버튼
+
+특히 미국 음식이나 leftovers에는:
+
+# KOREANIZE IT 🇰🇷
+
+버튼을 제공한다.
+
+예:
+
+사용자가:
+
+🍕 Pizza
+
+를 선택하면
+
+> Let's Koreanize it.
+
+↓
+
+### Kimchi Pizza
+
+또는
+
+### Korean-style Pizza Fried Rice
+
+등을 추천.
+
+---
+
+# 22. Recipe Result Example
+
+결과 화면은 다음처럼 구성한다.
+
+```text
+--------------------------------
+
+[FOOD IMAGE]
+
+Korean BBQ Chicken Bowl
+
+KOREAN-INSPIRED
+
+82 Korean Touch
+
+You have 6 / 7 ingredients
+
+⏱ 25 min     EASY
+
+--------------------------------
+
+YOU HAVE
+
+✓ Chicken
+✓ Rice
+✓ Onion
+✓ Garlic
+✓ Soy Sauce
+✓ Brown Sugar
+
+YOU NEED
+
++ Sesame Oil
+
+[ COOK NOW ]
+
+--------------------------------
+
+WHY KOREAN?
+
+Soy sauce, garlic and sesame oil
+create a flavor profile commonly
+associated with Korean-style meat dishes.
+
+The rice bowl format also reflects
+the importance of rice in Korean meals.
+
+--------------------------------
+
+KOREAN TOUCH
+
+Seasoning       ████████░░ 80
+Cooking         █████████░ 90
+Ingredients     ███████░░░ 70
+Serving         ████████░░ 80
+
+--------------------------------
+```
+
+---
+
+# 23. 데이터 구조
+
+가능하면 recipe data를 별도의 JSON/JS/TS 파일로 분리한다.
+
+예:
+
+```text
+src/
+  data/
+    ingredients.ts
+    kitchenTools.ts
+    recipes.ts
+    koreanCulture.ts
+```
+
+Recipe object:
+
+```javascript
+{
+  id: "korean-bbq-chicken-bowl",
+  name: "Korean BBQ Chicken Bowl",
+  category: "Korean-inspired",
+  description: "",
+  image: "/assets/recipes/korean-bbq-chicken-bowl.webp",
+
+  ingredients: [
+    {
+      id: "chicken-thigh",
+      amount: "300g",
+      required: true
+    }
+  ],
+
+  optionalIngredients: [],
+
+  substitutes: [],
+
+  kitchenTools: [
+    "frying-pan",
+    "knife",
+    "cutting-board"
+  ],
+
+  cookingTime: 25,
+
+  difficulty: "Easy",
+
+  koreanTouch: {
+    seasoning: 90,
+    cookingMethod: 85,
+    ingredients: 70,
+    servingStyle: 80
+  },
+
+  authenticity: "Korean-inspired",
+
+  whyKorean: {
+    ingredients: "",
+    seasoning: "",
+    cookingMethod: "",
+    servingStyle: "",
+    culture: ""
+  },
+
+  steps: []
+}
+```
+
+---
+
+# 24. 매우 중요한 콘텐츠 규칙
+
+### RULE 1
+
+모든 미국 음식이 한식으로 변환될 수 있다고 주장하지 않는다.
+
+### RULE 2
+
+전통 한식과 Korean-inspired food를 명확하게 구분한다.
+
+### RULE 3
+
+한국 식재료가 없는 사람도 최대한 접근할 수 있도록 한다.
+
+### RULE 4
+
+대체재를 제시할 때 "정통 한국 재료와 동일하다"고 주장하지 않는다.
+
+### RULE 5
+
+한국 음식 문화를 설명할 때 과장하거나 잘못된 역사적 사실을 만들지 않는다.
+
+### RULE 6
+
+레시피는 미국의 일반적인 주방에서 실제로 만들 수 있어야 한다.
+
+### RULE 7
+
+밥솥을 기본 전제로 사용하지 않는다.
+
+### RULE 8
+
+전자레인지, 오븐, 에어프라이어 등 미국 가정에서 흔한 도구를 적극 활용한다.
+
+### RULE 9
+
+사용자가 가진 재료를 최대한 활용한다.
+
+### RULE 10
+
+앱의 궁극적인 목적은 단순히 음식을 만드는 것이 아니라 **한국의 식문화에 대한 호기심을 만드는 것**이다.
+
+---
+
+# 25. MVP 우선순위
+
+처음부터 복잡한 AI API를 연결하지 말고 실제로 작동하는 MVP를 먼저 만들어라.
+
+### Phase 1
+
+* Home
+* Ingredient selection
+* Kitchen tool selection
+* Recipe database
+* Recipe recommendation
+* Recipe detail
+* Why Korean?
+* Cooking mode
+* Saved recipes
+
+### Phase 2
+
+* AI recipe generation
+* Natural language ingredient input
+* AI substitutions
+* Personalized recommendations
+
+### Phase 3
+
+* AI food image generation
+* Shopping integration
+* User accounts
+* Recipe sharing
+* Community
+
+---
+
+# 26. 기술 구현
+
+현재 프로젝트 환경을 먼저 확인하고 기존 구조가 있다면 최대한 재사용한다.
+
+새 프로젝트라면:
+
+* React
+* TypeScript
+* Vite
+* Tailwind CSS
+
+등의 현대적인 구조를 사용한다.
+
+반응형 웹앱으로 제작한다.
+
+특히 **iPhone 화면 기준 모바일 UX를 최우선으로 설계**한다.
+
+하지만 데스크톱에서도 자연스럽게 보이도록 responsive layout을 구현한다.
+
+---
+
+# 27. 최종적으로 보여줘야 하는 경험
+
+사용자가 앱에 들어와서:
+
+> "내 냉장고에는 계란, 베이컨, 양파, 밥, 치즈, 핫소스밖에 없는데?"
+
+라고 생각했을 때,
+
+Fridge Korea가:
+
+> "좋아. 그걸로 한국적인 한 끼를 만들어보자."
+
+라고 답하는 서비스가 되어야 한다.
+
+그리고 결과적으로 사용자가:
+
+> "이게 전통 한식은 아니지만, 간장·참기름·볶는 방식·밥 중심의 식사 구조가 한국적인 요소구나."
+
+라고 이해하게 만드는 것이 이 앱의 목적이다.
+
+---
+
+# 28. 개발 요청
+
+위의 기획을 바탕으로 실제로 작동하는 `Fridge Korea` MVP를 만들어라.
+
+단순한 정적 목업이 아니라:
+
+* 클릭 가능한 UI
+* 실제 재료 선택
+* 재료 검색
+* 선택 재료 상태 관리
+* 주방 도구 선택
+* 추천 알고리즘
+* 레시피 상세 페이지
+* 부족한 재료 계산
+* 대체재 표시
+* Why Korean 콘텐츠
+* Korean Touch Score
+* Cooking Mode
+* Save 기능
+
+이 실제로 작동해야 한다.
+
+먼저 프로젝트 구조와 기존 파일을 분석한 후 필요한 파일을 생성/수정하고, 구현이 끝나면 앱을 실행하여 주요 사용자 흐름을 직접 테스트한다.
+
+**가장 중요한 것은 기능의 수보다 완성도 높은 모바일 UX와 일관된 브랜드 경험이다.**
+
+앱 전체가 하나의 실제 서비스처럼 느껴지도록 만들어라.
