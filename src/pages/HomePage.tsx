@@ -8,7 +8,7 @@ export function HomePage() {
   return (
     <div className="safe-bottom safe-top min-h-dvh px-5 pb-8 pt-8">
       <div className="flex flex-col items-center pt-6 text-center">
-        <img src="/icon-app.png" alt="Fridge Korea" className="h-[8.25rem] w-[8.25rem]" />
+        <img src={`${import.meta.env.BASE_URL}icon-app.png`} alt="Fridge Korea" className="h-[8.25rem] w-[8.25rem]" />
         <p className="mt-8 font-display text-[13px] tracking-[0.28em] text-navy">FRIDGE KOREA</p>
         <h1 className="mt-3 max-w-[16rem] font-display text-[34px] leading-[1.1] text-charcoal">Your fridge. Korean way.</h1>
         <p className="mt-3 text-sm text-muted">Use what you have. Discover Korea.</p>

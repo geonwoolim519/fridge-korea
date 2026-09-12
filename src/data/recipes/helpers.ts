@@ -27,4 +27,4 @@ export function recipe(input: {
   };
 }
 
-export const img = (file: string) => `/assets/recipes/${file}`;
+export const img = (file: string) => `${import.meta.env.BASE_URL}assets/recipes/${file}`;

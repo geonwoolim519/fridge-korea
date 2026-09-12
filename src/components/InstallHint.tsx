@@ -50,7 +50,7 @@ export function InstallHint({ compact = false }: { compact?: boolean }) {
   return (
     <div className={`rounded-[24px] border border-charcoal/8 bg-paper ${compact ? 'p-4' : 'p-5'}`}>
       <div className="flex items-start gap-3">
-        <img src="/icon-app.png" alt="Fridge Korea" className="h-12 w-12" />
+        <img src={`${import.meta.env.BASE_URL}icon-app.png`} alt="Fridge Korea" className="h-12 w-12" />
         <div className="min-w-0 flex-1">
           <p className="text-sm font-semibold text-charcoal">Add Fridge Korea to your Home Screen</p>
           <p className="mt-1 text-xs leading-relaxed text-muted">

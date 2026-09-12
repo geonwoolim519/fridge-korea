@@ -1,9 +1,10 @@
-const CACHE = 'fridge-korea-v2';
+const CACHE = 'fridge-korea-v3';
+const BASE = self.location.pathname.replace(/sw\.js$/, '');
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE).then((cache) =>
-      cache.addAll(['/', '/index.html', '/manifest.webmanifest', '/apple-touch-icon.png']),
+      cache.addAll([BASE, `${BASE}index.html`, `${BASE}manifest.webmanifest`, `${BASE}apple-touch-icon.png`]),
     ),
   );
   self.skipWaiting();
@@ -37,10 +38,10 @@ self.addEventListener('fetch', (event) => {
       fetch(request)
         .then((response) => {
           const copy = response.clone();
-          caches.open(CACHE).then((cache) => cache.put('/index.html', copy));
+          caches.open(CACHE).then((cache) => cache.put(`${BASE}index.html`, copy));
           return response;
         })
-        .catch(() => caches.match('/index.html')),
+        .catch(() => caches.match(`${BASE}index.html`)),
     );
     return;
   }
